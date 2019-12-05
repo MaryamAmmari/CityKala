@@ -1,0 +1,52 @@
+﻿@model ProductItem
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "_Layout1";
+}
+<div class="d-flex align-content-center mt-5 pt-5">
+    <h2>جزئیات محصول و خرید</h2>
+</div>
+
+@if (Model == null)
+{
+    <p style="color:var(--site-theme-color)">محصول مورد نظر وجود ندارد.</p>
+}
+else
+{
+
+    <img src="~/@(Model.ProductImage)" style="display:block; margin: 0 auto;" />
+
+
+    <div class="d-flex flex-column align-items-center">
+        <h3> @Model.ProductName</h3>
+        <p> @Model.ProductDescription</p>
+
+        @if (Model.IsAvailable == true)
+        {
+            <a href="#" rol="button" class="btn btn-success btn-lg mx-3 mb-3 mt-1" aria-pressed="true">افزودن به سبد خرید</a>
+        }
+        else
+        {
+            <p style="color:var(--site-theme-color)">محصول مورد نظر موجود نیست.</p>
+        }
+    </div>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th> نام ویژگی</th>
+                <th>مقدار ویژگی</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Features)
+            {
+                <tr>
+                    <td>item.FeatureName</td>
+                    <td>item.FeatureValue</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

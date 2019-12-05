@@ -1,0 +1,213 @@
+﻿@using System.Security.Claims
+@using DigiShop.Constants
+@{
+    Layout = null;
+}
+@functions{
+    public string GetUserName()
+    {
+        if (!User.Identity.IsAuthenticated)
+            return "کاربر مهمان";
+        var fullName = User.Claims.FirstOrDefault(i => i.Type == ClaimConstants.FullName);
+        if (fullName != null)
+            return fullName.Value;
+        return User.Identity.Name;
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/css/bootstrap-rtl.min.css" type="text/css" rel="Stylesheet" />
+    <link href="~/lib/css/animate.css" type="text/css" rel="stylesheet" />
+    <link href="~/lib/css/styles.css" type="text/css" rel="Stylesheet" />
+
+    <title>@ViewBag.Title CityKala</title>
+    @RenderSection("Styles", false)
+</head>
+<body>
+    <header>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="http://www.citykala.com"><img src="~/assets/citykala-logo.png" width="100px" /></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ckMainMenu" aria-controls="ckMainMenu" aria-expanded="false" aria-label="نمایش فهرست">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="ckMainMenu">
+                <ul class="navbar-nav">
+                    <li class="navbar-item active">
+                        <a class="nav-link" href="/Home/Index">صفحه اصلی</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">محصولات</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-controller="Products" asp-action="List" asp-route-category="laptop">لپ تاپ</a>
+                            <a class="dropdown-item" href="#">تبلت</a>
+                            <a class="dropdown-item" asp-controller="Products" asp-action="List" asp-route-category="mobile">موبایل</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">قطعات کامپیوتری</a>
+                        </div>
+                    </li>
+                    <li class="navbar-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="newsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">اخبار</a>
+                        <div class="dropdown-menu" aria-labelledby="newsDropdown">
+                            <a class="dropdown-item" href="#">تازه های تکنولوژی <span class="badge badge-pill badge-danger mr-1">جدید</span></a>
+                        </div>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" asp-action="AboutUs" asp-controller="Home">درباره ما</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="#">ارتباط با ما</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            صفحه محافظت شده
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-controller="Protected" asp-action="AdminArea">ناحیه مدیریت</a>
+                            <a class="dropdown-item" asp-controller="Protected" asp-action="UserArea">ناحیه کاربر</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @GetUserName()
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @if (User == null || !User.Identity.IsAuthenticated)
+                            {
+                                <a class="dropdown-item" asp-controller="Account" asp-action="Login">ورود به سیستم</a>
+                            }
+                            else
+                            {
+                                <a class="dropdown-item" asp-controller="Account" asp-action="ChangePassword">تغییر رمز عبور</a>
+                                <a class="dropdown-item" asp-controller="Account" asp-action="Logout">خروج از سیستم</a>
+                            }
+                        </div>
+                    </li>                
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0" asp-controller="Products" asp-action="List" method="get">
+                    <input name="search" class="form-control mr-sm-2" type="search"
+                           placeholder="جستجو" aria-label="search" autocomplete="off"
+                           value="@(Context.Request.Query["search"])" />
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">جستجو</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-9 col-lg-10 mt-5 pt-5">
+                @RenderBody()
+            </div>
+            <div class="col-md-3 col-lg-2 mt-5 d-none d-md-block">
+                <div class="card mb-3 mt-5">
+                    <img src="~/assets/sidebar/cutRate.gif" alt="cutRateProducts" class="card-img" />
+                </div>
+                <div class="card my-3">
+                    <img src="~/assets/sidebar/mostSell.gif" alt="mostSellProduct" class="card-img" />
+                </div>
+                <div class="card">
+                    <h5 class="card-header">دسته بندی</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <ul class="list-unstyled mb=0">
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Products" asp-action="List" asp-route-category="laptop">لپ تاپ</a>
+                                </li>
+                                <li>
+                                    <a href="#">تبلت</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Products" asp-action="List" asp-route-category="mobile">موبایل</a>
+                                </li>
+                                <li>
+                                    <a href="#">قطعات کامپیوتری</a>
+                                </li>
+                            </ul>
+                            <ul class="list-unstyled mb=0">
+                                <li>
+                                    <a href="#">بند هوشمند</a>
+                                </li>
+                                <li>
+                                    <a href="#">ساعت هوشمند</a>
+                                </li>
+                                <li>
+                                    <a href="#">پاور بانک</a>
+                                </li>
+                                <li>
+                                    <a href="#">قاب گوشی</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="row bg-dark py-5">
+            <div class="col-md-4">
+                <h3 class="text-light underline">درباره ما</h3>
+                <p class="m-0 text-secondary text-justify">
+                    سیتی کالا به عنوان یکی از قدیمی‌ترین فروشگاه های اینترنتی با بیش از یک دهه تجربه، با پایبندی به سه اصل،
+                    پرداخت در محل، 7 روز ضمانت بازگشت کالا و تضمین اصل‌بودن کالا موفق شده تا همگام با فروشگاه‌های معتبر جهان، به
+                    بزرگ‌ترین فروشگاه اینترنتی ایران تبدیل شود. به محض ورود به سایت سیتی کالا با دنیایی از کالا رو به رو
+                    می‌شوید! هر آنچه که نیاز دارید و به ذهن شما خطور می‌کند در اینجا پیدا خواهید کرد
+
+                </p>
+            </div>
+            <div class="col-md-4 ">
+                <h3 class="text-light underline">لینک های مرتبط</h3>
+                <div id="footerLinks">
+                    <ul id="footerl">
+                        <li><a href="#">خانه</a></li>
+                        <li><a href="#">اخبار</a></li>
+                        <li><a href="#">ارتباط با ما</a></li>
+                        <li><a href="#">درباره ما</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3 class="text-light underline">ارتباط با ما</h3>
+                <p class="text-secondary">
+                    شماره تماس :
+                    ۶۱۹۳۰۰۰۰ - ۰۲۱
+                    و
+                    ۹۵۱۱۹۰۹۵ - ۰۲۱
+                    <br />
+                    آدرس ایمیل :
+                    info@citykala.com
+                </p>
+            </div>
+
+            <div class="col-12 text-center" id="copyright">
+                استفاده از مطالب فروشگاه اینترنتی سیتی کالا فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع
+                است. کلیه حقوق این سایت متعلق به شرکت نوآوران فن گستر (فروشگاه آنلاین سیتی کالا) می‌باشد
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="~/lib/js/jquery.min.js"></script>
+    <script src="~/lib/js/popper.min.js"></script>
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <script src="~/lib/js/javas.js"></script>
+
+    @RenderSection("Scripts", false)
+
+</body>
+</html>

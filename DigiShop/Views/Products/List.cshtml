@@ -1,0 +1,53 @@
+﻿
+@using DigiShop.Models.DataModels
+@using DigiShop.Helpers
+@using DigiShop.Models.ViewModels
+@model ProductsListViewModel
+@{
+    ViewData["Title"] = "Mobile";
+}
+@inject PagingHelper PagingHelper
+
+<h3 class="mb-3">محصولات</h3>
+<div class="d-flex flex-wrap align-content-stretch m-3">
+    @foreach (var item in Model.Products)
+    {
+        <div class="card mb-4 shopcard">
+            <div class="card-header">
+                <img src="~/@(item.ProductImage)" class="card-img-top rounded" id="cardimg" alt="@(item.ProductName)" />
+            </div>
+            <div class="card-body">
+                <h6 class="card-title"><a asp-action="Detail" asp-route-id="@(item.ProductId)">@item.ProductDescription</a></h6>
+                <p class="card-text">قیمت: @(item.ProductPrice) تومان</p>
+                <div class="card-footer">
+                    <a asp-action="Detail" asp-route-id="@(item.ProductId)" class="btn btn-info btn-block">افزودن به سبد خرید</a>
+                    <div class="border border-info rounded  bg-light my-2">
+                        <div class="star-rating-rtl m-2">
+                            <s><s><s><s><s></s></s></s></s></s>
+                            <span class="show-result mt-2"></span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<nav class="my-5" aria-label="Products Page navigation">
+    <ul class="pagination justify-content-center">
+        @foreach (var pagingItem in PagingHelper.GetPagings(Model.CurrentPage, Model.PagesCount))
+        {
+            <li class="page-item @(pagingItem.Active ? "active" : "")">
+                <a class="page-link" asp-action="Index"
+                   asp-route-page="@pagingItem.PageNumber">
+                    @pagingItem.Display
+                    @if (pagingItem.Active)
+                    {
+                        <span class="sr-only">(current)</span>
+                    }
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

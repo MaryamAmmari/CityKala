@@ -1,0 +1,127 @@
+﻿@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/css/bootstrap-rtl.min.css" type="text/css" rel="Stylesheet" />
+    <link href="~/lib/css/animate.css" type="text/css" rel="stylesheet" />
+    <link href="~/lib/css/styles.css" type="text/css" rel="Stylesheet" />
+
+    <title>@ViewBag.Title CityKala</title>
+</head>
+<body>
+    <header>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="http://www.citykala.com"><img src="~/assets/citykala-logo.png" width="100px" /></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ckMainMenu" aria-controls="ckMainMenu" aria-expanded="false" aria-label="نمایش فهرست">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="ckMainMenu">
+                <ul class="navbar-nav">
+                    <li class="navbar-item active">
+                        <a class="nav-link" href="/Home/Index">صفحه اصلی</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">محصولات</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-controller="Products" asp-action="List" asp-route-category="laptop">لپ تاپ</a>
+                            <a class="dropdown-item" href="#">تبلت</a>
+                            <a class="dropdown-item" asp-controller="Products" asp-action="List" asp-route-category="mobile">موبایل</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">قطعات کامپیوتری</a>
+                        </div>
+                    </li>
+                    <li class="navbar-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="newsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">اخبار</a>
+                        <div class="dropdown-menu" aria-labelledby="newsDropdown">
+                            <a class="dropdown-item" href="#">تازه های تکنولوژی <span class="badge badge-pill badge-danger mr-1">جدید</span></a>
+                        </div>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="/Home/AboutUs">درباره ما</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="contact.cshtml">ارتباط با ما</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" asp-controller="Protected" asp-action="Index">صفحه محافظت شده</a>
+                    </li>
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="جستجو" aria-label="search" />
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">جستجو</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+
+        @RenderBody()
+    </div>
+
+    <footer class="py-5 bg-dark">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="text-light underline">درباره ما</h3>
+                    <p class="m-0 text-secondary text-justify">
+                        سیتی کالا به عنوان یکی از قدیمی‌ترین فروشگاه های اینترنتی با بیش از یک دهه تجربه، با پایبندی به سه اصل،
+                        پرداخت در محل، 7 روز ضمانت بازگشت کالا و تضمین اصل‌بودن کالا موفق شده تا همگام با فروشگاه‌های معتبر جهان، به
+                        بزرگ‌ترین فروشگاه اینترنتی ایران تبدیل شود. به محض ورود به سایت سیتی کالا با دنیایی از کالا رو به رو
+                        می‌شوید! هر آنچه که نیاز دارید و به ذهن شما خطور می‌کند در اینجا پیدا خواهید کرد
+
+                    </p>
+                </div>
+                <div class="col-md-4 ">
+                    <h3 class="text-light underline">لینک های مرتبط</h3>
+                    <div id="footerLinks">
+                        <ul id="footerl">
+                            <li><a href="#">خانه</a></li>
+                            <li><a href="#">اخبار</a></li>
+                            <li><a href="#">ارتباط با ما</a></li>
+                            <li><a href="#">درباره ما</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h3 class="text-light underline">ارتباط با ما</h3>
+                    <p class="text-secondary">
+                        شماره تماس :
+                        ۶۱۹۳۰۰۰۰ - ۰۲۱
+                        و
+                        ۹۵۱۱۹۰۹۵ - ۰۲۱
+                        <br />
+                        آدرس ایمیل :
+                        info@citykala.com
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col text-center" id="copyright">
+                    استفاده از مطالب فروشگاه اینترنتی سیتی کالا فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع
+                    است. کلیه حقوق این سایت متعلق به شرکت نوآوران فن گستر (فروشگاه آنلاین سیتی کالا) می‌باشد
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/js/jquery.min.js"></script>
+    <script src="~/lib/js/popper.min.js"></script>
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/js/wow.min.js"></script>
+    <script src="~/lib/js/javas.js"></script>
+    <script>new WOW({offset: 100}).init();</script>
+</body>
+</html>

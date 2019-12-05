@@ -1,0 +1,126 @@
+﻿@model HomeModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="slideshow">
+    <div class="carousel slide" data-ride="carousel" id="myCarousel">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <li data-target="#myCarousel" data-slide-to="4"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/assets/carousel/01.jpg" class="d-block w-100" alt="CityKala" />
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>سیتی کالا</h5>
+                    <p>عرضه کننده باکیفیت ترین کالای دیجیتال</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/assets/carousel/02.jpg" class="d-block w-100" alt="Newest" />
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>جدیدترین ها</h5>
+                    <p>جدیدترین محصولات سیتی کالا</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/assets/carousel/03.jpg" class="d-block w-100" alt="Most-selling" />
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>پر فروش ترین ها </h5>
+                    <p>پر فروش ترین محصولات سیتی کالا</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/assets/carousel/04.jpg" class="d-block w-100" alt="cut-rate" />
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>تخفیف دارها</h5>
+                    <p> محصولات تخفیف دار سیتی کالا</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/assets/carousel/05.jpg" class="d-block w-100" alt="News" />
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>تازه های تکنولوژی <span class="badge badge-pill badge-danger">جدید</span> </h5>
+                    <p>با جدیدترین اخبار تکنولوژی با ما همراه باشید</p>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+
+<h3 class="my-3">
+    <a href="/Products/List/Mobile" class="text-decoration-none text-dark">موبایل</a>
+</h3>
+<div class="border border-secondary m-2">
+    <div class="d-flex flex-wrap align-content-stretch m-3">
+        @foreach (var mobile in Model.Mobiles)
+        {
+            <div class="card mb-4 shopcard">
+                <div class="card-header">
+                    <img src="~/@(mobile.ProductImage)" class="card-img-top rounded" id="cardimg" alt="@(mobile.ProductName)" />
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title"><a asp-controller="Products" asp-action="Detail" asp-route-id="@(mobile.ProductId)">@mobile.ProductDescription</a></h6>
+                    <p class="card-text">قیمت: @(mobile.ProductPrice) تومان</p>
+
+                    <a asp-controller="Products" asp-action="Detail" asp-route-id="@(mobile.ProductId)" class="btn btn-info btn-block">افزودن به سبد خرید</a>
+                    <div class="border border-info rounded  bg-light my-2">
+                        <div class="star-rating-rtl m-2">
+                            <s><s><s><s><s></s></s></s></s></s>
+                            <span class="show-result mt-2"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="d-flex justify-content-end">
+        <a href="/products/List/Mobile" class="btn btn-danger mx-3 mb-3 mt-1" role="button">بیشـــتر</a>
+    </div>
+</div>
+
+
+
+<h3 class="m-3"><a href="/Products/List/Laptop" class="text-decoration-none text-dark">لپ تاپ</a></h3>
+<div class="border border-secondary m-2">
+    <div class="d-flex flex-wrap align-content-stretch m-3">
+
+        @foreach (var laptop in Model.Laptops)
+        {
+            <div class="card mb-4 shopcard">
+                <div class="card-header">
+                    <img src="~/@(laptop.ProductImage)" class="card-img-top rounded" id="cardimg" alt="@(laptop.ProductName)" />
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title"><a asp-controller="Products" asp-action="Detail" asp-route-id="@(laptop.ProductId)">@laptop.ProductDescription</a></h6>
+                    <p class="card-text">قیمت: @(laptop.ProductPrice) تومان</p>
+
+                    <a asp-controller="Products" asp-action="Detail" asp-route-id="@(laptop.ProductId)" class="btn btn-info btn-block">افزودن به سبد خرید</a>
+                    <div class="border border-info rounded  bg-light my-2">
+                        <small class="text-muted mx-2">امتیاز بدهید</small>
+                        <div class="star-rating-rtl m-2"><s><s><s><s><s></s></s></s></s></s></div>
+                        <span class="show-result mt-2"></span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="d-flex justify-content-end">
+        <a href="/products/List/Laptop" class="btn btn-danger mx-3 mb-3 mt-1" role="button">بیشـــتر</a>
+    </div>
+
+</div>
